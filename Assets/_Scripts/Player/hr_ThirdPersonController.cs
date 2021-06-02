@@ -129,6 +129,7 @@ public class hr_ThirdPersonController : MonoBehaviour
         else
         {
             rigiBody.drag = airDrag;
+            rigiBody.AddForce(new Vector3(0, -150000f, 0) * Time.deltaTime);
         }
     }
 
