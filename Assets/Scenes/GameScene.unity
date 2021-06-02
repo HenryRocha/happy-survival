@@ -28817,6 +28817,9 @@ MonoBehaviour:
   sensitivityX: 0.15
   sensitivityY: 0.1
   rotationSpeed: 30
+  cameraZoomDefault: 40
+  cameraZoom: 20
+  cameraZoomSpeed: 10
   aimRig: {fileID: 34638364}
   aimTimeMultiplier: 10
   moveSpeed: 1.8

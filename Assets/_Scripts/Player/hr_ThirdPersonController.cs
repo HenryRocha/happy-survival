@@ -23,6 +23,9 @@ public class hr_ThirdPersonController : MonoBehaviour
     [SerializeField] private float sensitivityX = 1.0f;
     [SerializeField] private float sensitivityY = 1.0f;
     [SerializeField] private float rotationSpeed = 10.0f;
+    [SerializeField] private float cameraZoomDefault = 40.0f;
+    [SerializeField] private float cameraZoom = 20.0f;
+    [SerializeField] private float cameraZoomSpeed = 10.0f;
 
     [Header("Aim Settings")]
     [SerializeField] private Rig aimRig;
@@ -44,7 +47,7 @@ public class hr_ThirdPersonController : MonoBehaviour
     // References
     private Rigidbody rigiBody;
     private Animator animator;
-    private Transform mainCamera;
+    private Camera mainCamera;
     private hr_InputManager inputManager;
     private hr_RaycastWeapon weapon;
     private SphereCollider sphereCollider;
@@ -75,7 +78,7 @@ public class hr_ThirdPersonController : MonoBehaviour
         sphereCollider = this.transform.Find("StealthCollider").GetComponent<SphereCollider>();
 
         // Get a reference to main camera's transform.
-        mainCamera = Camera.main.transform;
+        mainCamera = Camera.main;
 
         // Update the player's rigid body drag.
         rigiBody.drag = groundDrag;
@@ -198,10 +201,6 @@ public class hr_ThirdPersonController : MonoBehaviour
         targetRotation.x = 0;
         targetRotation.z = 0;
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-
-        // float yawCamera = mainCamera.rotation.eulerAngles.y;
-        // Quaternion playerRotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, yawCamera, 0), rotationSpeed * Time.deltaTime);
-        // transform.rotation = playerRotation;
     }
 
     /// <summary>
@@ -225,6 +224,7 @@ public class hr_ThirdPersonController : MonoBehaviour
         if (inputManager.aimInput)
         {
             aimRig.weight = Mathf.Lerp(aimRig.weight, 1.0f, Time.deltaTime * aimTimeMultiplier);
+            mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, cameraZoom, Time.deltaTime * cameraZoomSpeed);
 
             if (!aimState)
             {
@@ -234,6 +234,8 @@ public class hr_ThirdPersonController : MonoBehaviour
         else
         {
             aimRig.weight = Mathf.Lerp(aimRig.weight, 0.0f, Time.deltaTime * aimTimeMultiplier);
+            mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, cameraZoomDefault, Time.deltaTime * cameraZoomSpeed);
+
             if (aimState)
             {
                 aimState = false;
