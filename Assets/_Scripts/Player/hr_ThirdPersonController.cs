@@ -14,6 +14,14 @@ public class hr_ThirdPersonController : MonoBehaviour
     [SerializeField] private float movementMultiplier = 70.0f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckDistance = 0.0f;
+    [SerializeField] private GameObject stepRayLower;
+    [SerializeField] private GameObject stepRayUpper;
+    [SerializeField] private float stepHeight = 0.3f;
+    [SerializeField] private float stepSmooth = 2.0f;
+    [SerializeField] private float lowerDist = 0.2f;
+    [SerializeField] private float upperDist = 0.4f;
+    [SerializeField] private float lowerDistAngle = 0.3f;
+    [SerializeField] private float upperDistAngle = 0.5f;
 
     [Header("Camera Settings")]
     [SerializeField] private Transform lookAt;
@@ -82,6 +90,9 @@ public class hr_ThirdPersonController : MonoBehaviour
 
         // Update the player's rigid body drag.
         rigiBody.drag = groundDrag;
+
+        // Set the upper step height.
+        stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepHeight, stepRayUpper.transform.position.z);
     }
 
     /// <summary>
@@ -115,6 +126,7 @@ public class hr_ThirdPersonController : MonoBehaviour
         ControlDrag();
         HandleMovement();
         HandleJump();
+        StepClimb();
     }
 
     /// <summary>
@@ -308,6 +320,45 @@ public class hr_ThirdPersonController : MonoBehaviour
         else
         {
             return 1;
+        }
+    }
+
+    private void StepClimb()
+    {
+        Debug.DrawRay(stepRayLower.transform.position, transform.forward * lowerDist, Color.green);
+        RaycastHit lowerHit;
+        if (Physics.Raycast(stepRayLower.transform.position, transform.forward, out lowerHit, lowerDist))
+        {
+            Debug.DrawRay(stepRayUpper.transform.position, transform.forward * upperDist, Color.green);
+            RaycastHit upperHit;
+            if (!Physics.Raycast(stepRayUpper.transform.position, transform.forward, out upperHit, upperDist))
+            {
+                rigiBody.position -= new Vector3(0.0f, -stepSmooth * Time.deltaTime, 0.0f);
+            }
+        }
+
+        Debug.DrawRay(stepRayLower.transform.position, transform.TransformDirection(1.5f, 0, 1) * lowerDistAngle, Color.green);
+        RaycastHit hitLower45;
+        if (Physics.Raycast(stepRayLower.transform.position, transform.TransformDirection(1.5f, 0, 1), out hitLower45, lowerDistAngle))
+        {
+            Debug.DrawRay(stepRayUpper.transform.position, transform.TransformDirection(1.5f, 0, 1) * upperDistAngle, Color.green);
+            RaycastHit hitUpper45;
+            if (!Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(1.5f, 0, 1), out hitUpper45, upperDistAngle))
+            {
+                rigiBody.position -= new Vector3(0.0f, -stepSmooth * Time.deltaTime, 0.0f);
+            }
+        }
+
+        Debug.DrawRay(stepRayLower.transform.position, transform.TransformDirection(-1.5f, 0, 1) * lowerDistAngle, Color.green);
+        RaycastHit hitLowerMinus45;
+        if (Physics.Raycast(stepRayLower.transform.position, transform.TransformDirection(-1.5f, 0, 1), out hitLowerMinus45, lowerDistAngle))
+        {
+            Debug.DrawRay(stepRayUpper.transform.position, transform.TransformDirection(-1.5f, 0, 1) * upperDistAngle, Color.green);
+            RaycastHit hitUpperMinus45;
+            if (!Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(-1.5f, 0, 1), out hitUpperMinus45, upperDistAngle))
+            {
+                rigiBody.position -= new Vector3(0.0f, -stepSmooth * Time.deltaTime, 0.0f);
+            }
         }
     }
 }
