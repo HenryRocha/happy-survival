@@ -9106,7 +9106,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1075609464}
-  m_RootOrder: 345
+  m_RootOrder: 322
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &730977407
 PrefabInstance:
@@ -11547,7 +11547,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1075609464}
-  m_RootOrder: 172
+  m_RootOrder: 135
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &900882792
 PrefabInstance:
@@ -13859,6 +13859,7 @@ Transform:
   - {fileID: 1515269676}
   - {fileID: 1274069312}
   - {fileID: 744776750}
+  - {fileID: 899679020}
   - {fileID: 181538350}
   - {fileID: 1125037471}
   - {fileID: 1129101890}
@@ -13896,7 +13897,6 @@ Transform:
   - {fileID: 635123549}
   - {fileID: 459573822}
   - {fileID: 1466690392}
-  - {fileID: 899679020}
   - {fileID: 1184645738}
   - {fileID: 500238911}
   - {fileID: 878880715}
@@ -14046,6 +14046,7 @@ Transform:
   - {fileID: 1469846121}
   - {fileID: 1341757754}
   - {fileID: 563754547}
+  - {fileID: 728675859}
   - {fileID: 752823692}
   - {fileID: 1218349275}
   - {fileID: 983161305}
@@ -14069,7 +14070,6 @@ Transform:
   - {fileID: 259455795}
   - {fileID: 1719788051}
   - {fileID: 1136368776}
-  - {fileID: 728675859}
   - {fileID: 370728252}
   - {fileID: 1340240560}
   - {fileID: 1907064738}
@@ -30138,8 +30138,8 @@ MonoBehaviour:
   aimTimeMultiplier: 10
   moveSpeed: 1.8
   walkingSpeed: 1.8
-  runningSpeed: 3
-  jumpForce: 700
+  runningSpeed: 4
+  jumpForce: 100
   zombieLayer:
     serializedVersion: 2
     m_Bits: 1024

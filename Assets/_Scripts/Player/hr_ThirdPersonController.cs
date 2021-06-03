@@ -32,7 +32,7 @@ public class hr_ThirdPersonController : MonoBehaviour
     [SerializeField] private float moveSpeed = 1.0f;
     [SerializeField] private float walkingSpeed = 1.0f;
     [SerializeField] private float runningSpeed = 2.0f;
-    [SerializeField] private float jumpForce = 2.0f;
+    [SerializeField] private float jumpForce = 1.0f;
 
     [Header("Stealth Settings")]
     [SerializeField] private LayerMask zombieLayer;
