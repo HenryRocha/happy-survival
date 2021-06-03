@@ -95,12 +95,15 @@ public class hr_ThirdPersonController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        HandleCameraRotation();
-        HandlePlayerRotation();
-        HandlePlayerAiming();
-        HandleWeaponFiring();
+        if (!PauseController.GameIsPaused) 
+        {
+            HandleCameraRotation();
+            HandlePlayerRotation();
+            HandlePlayerAiming();
+            HandleWeaponFiring();
 
-        AlertNearbyZombies();
+            AlertNearbyZombies();
+        }
     }
 
     /// <summary>

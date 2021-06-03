@@ -11,6 +11,7 @@ public class hr_InputManager : MonoBehaviour
     public bool jumpInput;
     public bool aimInput;
     public bool fireInput;
+    public bool pauseInput;
 
     private PlayerControls playerControls;
 
@@ -38,6 +39,9 @@ public class hr_InputManager : MonoBehaviour
 
             playerControls.PlayerActions.Fire.performed += i => fireInput = true;
             playerControls.PlayerActions.Fire.canceled += i => fireInput = false;
+
+            playerControls.PlayerActions.Pause.performed += i => pauseInput = true;
+            playerControls.PlayerActions.Pause.canceled += i => pauseInput = false;
         }
 
         playerControls.Enable();
