@@ -109,7 +109,7 @@ public class hr_ThirdPersonController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (!PauseController.GameIsPaused) 
+        if (!PauseController.GameIsPaused)
         {
             HandleCameraRotation();
             HandlePlayerRotation();
