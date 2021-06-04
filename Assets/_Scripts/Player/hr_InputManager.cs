@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class hr_InputManager : MonoBehaviour
 {
@@ -14,6 +12,16 @@ public class hr_InputManager : MonoBehaviour
     public bool pauseInput;
 
     private PlayerControls playerControls;
+    private PauseController pauseController;
+
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
+    private void Awake()
+    {
+        // Get a reference to this object's PauseController.
+        pauseController = GameObject.Find("PauseController").GetComponent<PauseController>();
+    }
 
     /// <summary>
     /// This function is called when the object becomes enabled and active.
@@ -40,8 +48,7 @@ public class hr_InputManager : MonoBehaviour
             playerControls.PlayerActions.Fire.performed += i => fireInput = true;
             playerControls.PlayerActions.Fire.canceled += i => fireInput = false;
 
-            playerControls.PlayerActions.Pause.performed += i => pauseInput = true;
-            playerControls.PlayerActions.Pause.canceled += i => pauseInput = false;
+            playerControls.PlayerActions.Pause.performed += i => pauseController.DeterminePause();
         }
 
         playerControls.Enable();

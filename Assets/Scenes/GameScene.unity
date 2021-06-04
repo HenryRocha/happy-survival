@@ -18382,7 +18382,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1075609464}
-  m_RootOrder: 261
+  m_RootOrder: 173
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &730977407
 PrefabInstance:
@@ -23164,6 +23164,7 @@ Transform:
   - {fileID: 635123549}
   - {fileID: 459573822}
   - {fileID: 1466690392}
+  - {fileID: 728675859}
   - {fileID: 1184645738}
   - {fileID: 500238911}
   - {fileID: 878880715}
@@ -23252,7 +23253,6 @@ Transform:
   - {fileID: 440116419}
   - {fileID: 2146357798}
   - {fileID: 2073198716}
-  - {fileID: 728675859}
   - {fileID: 157016701}
   - {fileID: 694576761}
   - {fileID: 1339349007}
@@ -25433,7 +25433,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1189644260}
   - component: {fileID: 1189644261}
-  - component: {fileID: 1189644262}
   m_Layer: 5
   m_Name: PauseController
   m_TagString: Untagged
@@ -25475,25 +25474,6 @@ MonoBehaviour:
   pauseDelay: 0.5
   lastPaused: 0.5
   pausePanelUI: {fileID: 1972731336427446160}
---- !u!114 &1189644262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1189644259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 837e8197ffa96dd4da789b2e9253a1b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementInput: {x: 0, y: 0}
-  mouseLook: {x: 0, y: 0}
-  sprintInput: 0
-  jumpInput: 0
-  aimInput: 0
-  fireInput: 0
-  pauseInput: 0
 --- !u!1001 &1193078197
 PrefabInstance:
   m_ObjectHideFlags: 0
