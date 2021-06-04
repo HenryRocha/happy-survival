@@ -108,8 +108,8 @@ NavMeshSettings:
     agentTypeID: 0
     agentRadius: 0.2
     agentHeight: 1.8
-    agentSlope: 55
-    agentClimb: 0.8
+    agentSlope: 45
+    agentClimb: 0.3
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -23559,7 +23559,6 @@ MonoBehaviour:
   tracerEffect: {fileID: 2338899981167537757, guid: 932bf0894d045424b9a217cc449a6473,
     type: 3}
   raycastOrigin: {fileID: 2139416113}
-  munitionLeft: 20
 --- !u!1001 &1115669327
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28919,7 +28918,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4368941414463861026, guid: 9d10205f7067cd841a5abfe90a711479, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9d10205f7067cd841a5abfe90a711479, type: 3}
 --- !u!1001 &1460707359
 PrefabInstance:
@@ -36978,7 +36978,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 0}
-  gun: {fileID: 1100268208}
 --- !u!114 &1989494959
 MonoBehaviour:
   m_ObjectHideFlags: 0
