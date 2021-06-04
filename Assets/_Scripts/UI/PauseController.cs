@@ -10,16 +10,6 @@ public class PauseController : MonoBehaviour
 
     // Reference to the Pause Panel UI.
     public GameObject pausePanelUI;
-    private hr_InputManager inputManager;
-
-    /// <summary>
-    /// Awake is called when the script instance is being loaded.
-    /// </summary>
-    private void Awake()
-    {
-        // Get a reference to this object's hr_InputManager.
-        inputManager = this.GetComponent<hr_InputManager>();
-    }
 
     public void DeterminePause()
     {
