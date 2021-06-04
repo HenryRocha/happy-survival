@@ -14,6 +14,14 @@ public class hr_ThirdPersonController : MonoBehaviour
     [SerializeField] private float movementMultiplier = 70.0f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckDistance = 0.0f;
+    [SerializeField] private GameObject stepRayLower;
+    [SerializeField] private GameObject stepRayUpper;
+    [SerializeField] private float stepHeight = 0.3f;
+    [SerializeField] private float stepSmooth = 2.0f;
+    [SerializeField] private float lowerDist = 0.2f;
+    [SerializeField] private float upperDist = 0.4f;
+    [SerializeField] private float lowerDistAngle = 0.3f;
+    [SerializeField] private float upperDistAngle = 0.5f;
 
     [Header("Camera Settings")]
     [SerializeField] private Transform lookAt;
@@ -23,6 +31,9 @@ public class hr_ThirdPersonController : MonoBehaviour
     [SerializeField] private float sensitivityX = 1.0f;
     [SerializeField] private float sensitivityY = 1.0f;
     [SerializeField] private float rotationSpeed = 10.0f;
+    [SerializeField] private float cameraZoomDefault = 40.0f;
+    [SerializeField] private float cameraZoom = 20.0f;
+    [SerializeField] private float cameraZoomSpeed = 10.0f;
 
     [Header("Aim Settings")]
     [SerializeField] private Rig aimRig;
@@ -44,7 +55,7 @@ public class hr_ThirdPersonController : MonoBehaviour
     // References
     private Rigidbody rigiBody;
     private Animator animator;
-    private Transform mainCamera;
+    private Camera mainCamera;
     private hr_InputManager inputManager;
     private hr_RaycastWeapon weapon;
     private SphereCollider sphereCollider;
@@ -75,10 +86,13 @@ public class hr_ThirdPersonController : MonoBehaviour
         sphereCollider = this.transform.Find("StealthCollider").GetComponent<SphereCollider>();
 
         // Get a reference to main camera's transform.
-        mainCamera = Camera.main.transform;
+        mainCamera = Camera.main;
 
         // Update the player's rigid body drag.
         rigiBody.drag = groundDrag;
+
+        // Set the upper step height.
+        stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepHeight, stepRayUpper.transform.position.z);
     }
 
     /// <summary>
@@ -115,6 +129,7 @@ public class hr_ThirdPersonController : MonoBehaviour
         ControlDrag();
         HandleMovement();
         HandleJump();
+        StepClimb();
     }
 
     /// <summary>
@@ -129,6 +144,7 @@ public class hr_ThirdPersonController : MonoBehaviour
         else
         {
             rigiBody.drag = airDrag;
+            rigiBody.AddForce(new Vector3(0, -150000f, 0) * Time.deltaTime);
         }
     }
 
@@ -201,10 +217,6 @@ public class hr_ThirdPersonController : MonoBehaviour
         targetRotation.x = 0;
         targetRotation.z = 0;
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-
-        // float yawCamera = mainCamera.rotation.eulerAngles.y;
-        // Quaternion playerRotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, yawCamera, 0), rotationSpeed * Time.deltaTime);
-        // transform.rotation = playerRotation;
     }
 
     /// <summary>
@@ -228,6 +240,7 @@ public class hr_ThirdPersonController : MonoBehaviour
         if (inputManager.aimInput)
         {
             aimRig.weight = Mathf.Lerp(aimRig.weight, 1.0f, Time.deltaTime * aimTimeMultiplier);
+            mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, cameraZoom, Time.deltaTime * cameraZoomSpeed);
 
             if (!aimState)
             {
@@ -237,6 +250,8 @@ public class hr_ThirdPersonController : MonoBehaviour
         else
         {
             aimRig.weight = Mathf.Lerp(aimRig.weight, 0.0f, Time.deltaTime * aimTimeMultiplier);
+            mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, cameraZoomDefault, Time.deltaTime * cameraZoomSpeed);
+
             if (aimState)
             {
                 aimState = false;
@@ -308,6 +323,45 @@ public class hr_ThirdPersonController : MonoBehaviour
         else
         {
             return 1;
+        }
+    }
+
+    private void StepClimb()
+    {
+        Debug.DrawRay(stepRayLower.transform.position, transform.forward * lowerDist, Color.green);
+        RaycastHit lowerHit;
+        if (Physics.Raycast(stepRayLower.transform.position, transform.forward, out lowerHit, lowerDist))
+        {
+            Debug.DrawRay(stepRayUpper.transform.position, transform.forward * upperDist, Color.green);
+            RaycastHit upperHit;
+            if (!Physics.Raycast(stepRayUpper.transform.position, transform.forward, out upperHit, upperDist))
+            {
+                rigiBody.position -= new Vector3(0.0f, -stepSmooth * Time.deltaTime, 0.0f);
+            }
+        }
+
+        Debug.DrawRay(stepRayLower.transform.position, transform.TransformDirection(1.5f, 0, 1) * lowerDistAngle, Color.green);
+        RaycastHit hitLower45;
+        if (Physics.Raycast(stepRayLower.transform.position, transform.TransformDirection(1.5f, 0, 1), out hitLower45, lowerDistAngle))
+        {
+            Debug.DrawRay(stepRayUpper.transform.position, transform.TransformDirection(1.5f, 0, 1) * upperDistAngle, Color.green);
+            RaycastHit hitUpper45;
+            if (!Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(1.5f, 0, 1), out hitUpper45, upperDistAngle))
+            {
+                rigiBody.position -= new Vector3(0.0f, -stepSmooth * Time.deltaTime, 0.0f);
+            }
+        }
+
+        Debug.DrawRay(stepRayLower.transform.position, transform.TransformDirection(-1.5f, 0, 1) * lowerDistAngle, Color.green);
+        RaycastHit hitLowerMinus45;
+        if (Physics.Raycast(stepRayLower.transform.position, transform.TransformDirection(-1.5f, 0, 1), out hitLowerMinus45, lowerDistAngle))
+        {
+            Debug.DrawRay(stepRayUpper.transform.position, transform.TransformDirection(-1.5f, 0, 1) * upperDistAngle, Color.green);
+            RaycastHit hitUpperMinus45;
+            if (!Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(-1.5f, 0, 1), out hitUpperMinus45, upperDistAngle))
+            {
+                rigiBody.position -= new Vector3(0.0f, -stepSmooth * Time.deltaTime, 0.0f);
+            }
         }
     }
 }

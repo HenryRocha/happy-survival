@@ -1295,7 +1295,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 1bf99946ed368934d995d248bf770b04, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -1365,14 +1365,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cda06e7d081e31a4bb7d5609da494a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAware: 0
-  fov: 120
-  viewDistance: 10
+  health: 100
+  enableWander: 1
   allMasks:
     serializedVersion: 2
-    m_Bits: 4294967295
-  health: 100
+    m_Bits: 311
+  fov: 120
+  viewDistance: 15
   wanderRadius: 7
+  loseThreshold: 10
 --- !u!1 &3594989744128674561
 GameObject:
   m_ObjectHideFlags: 0
