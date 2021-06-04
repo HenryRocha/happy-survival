@@ -7,6 +7,7 @@ public class hr_ZombieController : MonoBehaviour
     [SerializeField] private float health = 100;
 
     [Header("AI settings")]
+    [SerializeField] private bool enableWander = true;
     [SerializeField] private LayerMask allMasks;
     [SerializeField] private float fov = 120.0f;
     [SerializeField] private float viewDistance = 10.0f;
@@ -59,7 +60,10 @@ public class hr_ZombieController : MonoBehaviour
         else
         {
             loseTimer = 0.0f;
-            Wander();
+            if (enableWander)
+            {
+                Wander();
+            }
         }
 
         SearchForPlayer();
