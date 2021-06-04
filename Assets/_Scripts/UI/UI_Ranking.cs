@@ -4,22 +4,26 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UI_MunitionLeft : MonoBehaviour
+public class UI_Ranking : MonoBehaviour
 {
-
-    public TextMeshProUGUI text;
     private GameManager gm;
+    TextMeshProUGUI text;
 
     // Start is called before the first frame update
     void Start()
     {
-        text = gameObject.GetComponent<TextMeshProUGUI>();
         gm = GameManager.GetInstance();
+        text = gameObject.GetComponent<TextMeshProUGUI>();
+        string msg = "";
+        for (int i = 0; i<10; i++) {
+            msg += $"{gm.highScorePlayers[i]}: {gm.highScores[i]}\n";
+        }
+        text.text = msg;
     }
 
     // Update is called once per frame
     void Update()
     {
-        text.text = $"Munition: {gm.munitionLeft}";
+
     }
 }

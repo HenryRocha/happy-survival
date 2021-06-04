@@ -23,6 +23,8 @@ public class hr_ZombieController : MonoBehaviour
     private float loseTimer = 0.0f;
     private Vector3 wanderPoint = Vector3.zero;
 
+    private GameManager gm;
+
     /// <summary>
     /// Start is called on the frame when a script is enabled just before
     /// any of the Update methods is called the first time.
@@ -33,6 +35,7 @@ public class hr_ZombieController : MonoBehaviour
         animator = this.GetComponent<Animator>();
         player = GameObject.Find("Player");
         wanderPoint = RandomWanderPoint();
+        gm = GameManager.GetInstance();
     }
 
     /// <summary>
@@ -115,6 +118,7 @@ public class hr_ZombieController : MonoBehaviour
         if (health <= 0)
         {
             Destroy(this.gameObject);
+            gm.AddPoints(10);
         }
     }
 
