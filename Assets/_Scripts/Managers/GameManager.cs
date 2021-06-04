@@ -7,13 +7,13 @@ public class GameManager
 
     // Game Variables
     private int level;
-    private float timeSpent;
-    private float levelStartTime;
+    public float timeSpent;
+    public float levelStartTime;
     public int munitionLeft;
 
 
     // Points Variables
-    private int points;
+    public int points;
 
 
     // Ranking Variables
