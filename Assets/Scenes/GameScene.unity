@@ -108,8 +108,8 @@ NavMeshSettings:
     agentTypeID: 0
     agentRadius: 0.2
     agentHeight: 1.8
-    agentSlope: 55
-    agentClimb: 0.8
+    agentSlope: 45
+    agentClimb: 0.3
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -10893,7 +10893,7 @@ PrefabInstance:
     - target: {fileID: 4263537123780247803, guid: 9d10205f7067cd841a5abfe90a711479,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4263537123780247803, guid: 9d10205f7067cd841a5abfe90a711479,
         type: 3}
@@ -11215,14 +11215,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1576501130}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &1576501132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11703,7 +11698,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1869127475
 GameObject:

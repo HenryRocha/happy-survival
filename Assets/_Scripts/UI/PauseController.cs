@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseController : MonoBehaviour
@@ -14,7 +12,6 @@ public class PauseController : MonoBehaviour
     public GameObject pausePanelUI;
     private hr_InputManager inputManager;
 
-
     /// <summary>
     /// Awake is called when the script instance is being loaded.
     /// </summary>
@@ -22,27 +19,19 @@ public class PauseController : MonoBehaviour
     {
         // Get a reference to this object's hr_InputManager.
         inputManager = this.GetComponent<hr_InputManager>();
-        lastPaused = Time.time;
     }
 
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void Update()
+    public void DeterminePause()
     {
-        if (inputManager.pauseInput && Time.time - lastPaused > pauseDelay)
+        if (GameIsPaused)
         {
-            if (GameIsPaused)
-            {
-                Debug.Log("Paused!");
-                ResumeGame();
-            }
-            else
-            {
-                Debug.Log("Continued!");
-                PauseGame();
-            }
-            lastPaused = Time.time;
+            Debug.Log("Paused!");
+            ResumeGame();
+        }
+        else
+        {
+            Debug.Log("Continued!");
+            PauseGame();
         }
     }
 
