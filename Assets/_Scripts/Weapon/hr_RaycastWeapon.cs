@@ -15,11 +15,15 @@ public class hr_RaycastWeapon : MonoBehaviour
     private Ray ray;
     private RaycastHit hit;
 
-    public int munitionLeft = 20;
+    private GameManager gm;
+
+    void Awake() {
+        gm = GameManager.GetInstance();
+    }
 
     public void StartFiring()
     {
-        if (munitionLeft > 0)
+        if (gm.munitionLeft > 0)
         {
             muzzleFlash.Emit(1);
 
@@ -48,17 +52,12 @@ public class hr_RaycastWeapon : MonoBehaviour
 
                 tracer.transform.position = hit.point;
             }
-            this.munitionLeft--;
+            gm.munitionLeft--;
         }
     }
 
     public void StopFiring()
     {
-    }
-
-    public void addMunition()
-    {
-        this.munitionLeft += 20;
     }
 
 }
