@@ -27,6 +27,7 @@ public class hr_RaycastWeapon : MonoBehaviour
         if (gm.munitionLeft > 0)
         {
             muzzleFlash.Emit(1);
+            hr_AudioManager.instance.Play("gunshot_01");
 
             ray.origin = raycastOrigin.position;
             ray.direction = raycastOrigin.forward;
