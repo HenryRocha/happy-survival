@@ -11,3 +11,5 @@
 5. [Particles](https://assetstore.unity.com/packages/essentials/tutorial-projects/unity-particle-pack-127325)
 6. [Zombie AI](https://www.youtube.com/playlist?list=PLc74DR4WWHumNpmv-FEfB8KxqQyx4xEG-)
 7. [Player weapon riggging](https://www.youtube.com/playlist?list=PLyBYG1JGBcd1E4CigRSDE9YdH8syiDY6-)
+8. [Gunshot sound](https://freesound.org/people/andrest2003/sounds/524912/)
+9. [Escape sound](https://freesound.org/people/jobro/sounds/60443/)

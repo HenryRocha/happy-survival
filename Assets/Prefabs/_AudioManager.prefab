@@ -69,6 +69,14 @@ MonoBehaviour:
     source: {fileID: 0}
     audioMixerGroup: {fileID: 1381219353881976334, guid: b55277f79a864dd47946b9ac969c8f3c,
       type: 2}
+  - name: escape
+    clip: {fileID: 8300000, guid: 549069c8f4ec8da44a879b94e8081352, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: 1381219353881976334, guid: b55277f79a864dd47946b9ac969c8f3c,
+      type: 2}
   scaredShoutsSounds:
   - name: shout1
     clip: {fileID: 8300000, guid: fa2438296b713b7489fc67260cb29a1c, type: 3}
