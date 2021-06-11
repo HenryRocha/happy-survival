@@ -52,6 +52,9 @@ public class hr_ThirdPersonController : MonoBehaviour
     [SerializeField] private float sprintSoundIntensity = 3f;
     [SerializeField] private float walkSoundIntensity = 2f;
 
+    [Header("Interact Settings")]
+    [SerializeField] private float range = 8.0f;
+
     // References
     private Rigidbody rigiBody;
     private Animator animator;
@@ -64,6 +67,7 @@ public class hr_ThirdPersonController : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     private bool aimState = false;
     private bool firingState = false;
+    private hr_IInteractable currentTarget;
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -117,6 +121,8 @@ public class hr_ThirdPersonController : MonoBehaviour
             HandleWeaponFiring();
 
             AlertNearbyZombies();
+
+            RaycastForInteractable();
         }
     }
 
@@ -361,6 +367,50 @@ public class hr_ThirdPersonController : MonoBehaviour
             if (!Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(-1.5f, 0, 1), out hitUpperMinus45, upperDistAngle))
             {
                 rigiBody.position -= new Vector3(0.0f, -stepSmooth * Time.deltaTime, 0.0f);
+            }
+        }
+    }
+
+    private void RaycastForInteractable()
+    {
+        RaycastHit hit;
+
+        Ray ray = new Ray(cameraLookAt.transform.position, cameraLookAt.transform.forward);
+        Debug.DrawRay(cameraLookAt.transform.position, cameraLookAt.transform.forward * range, Color.red, 0.1f);
+
+        if (Physics.Raycast(ray, out hit, range))
+        {
+            hr_IInteractable interactable = hit.collider.GetComponent<hr_IInteractable>();
+
+            if (interactable != null && hit.distance <= interactable.maxRange)
+            {
+                if (currentTarget != null && interactable != currentTarget)
+                {
+                    currentTarget.OnStopHover();
+                    currentTarget = interactable;
+                    currentTarget.OnStartHover();
+                }
+                else if (interactable != currentTarget)
+                {
+                    currentTarget = interactable;
+                    currentTarget.OnStartHover();
+                }
+            }
+            else
+            {
+                if (currentTarget != null)
+                {
+                    currentTarget.OnStopHover();
+                    currentTarget = null;
+                }
+            }
+        }
+        else
+        {
+            if (currentTarget != null)
+            {
+                currentTarget.OnStopHover();
+                currentTarget = null;
             }
         }
     }
