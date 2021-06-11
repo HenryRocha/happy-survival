@@ -17,7 +17,8 @@ public class hr_RaycastWeapon : MonoBehaviour
 
     private GameManager gm;
 
-    void Awake() {
+    void Awake()
+    {
         gm = GameManager.GetInstance();
     }
 
@@ -41,7 +42,7 @@ public class hr_RaycastWeapon : MonoBehaviour
                     fleshHitEffect.transform.forward = hit.normal;
                     fleshHitEffect.Emit(1);
 
-                    hit.collider.GetComponent<hr_ZombieController>().TakeDamage(15.0f);
+                    hit.collider.GetComponent<hr_ZombieController>().TakeDamage(25.0f);
                 }
                 else
                 {
