@@ -11,6 +11,7 @@ public class hr_ZombieController : MonoBehaviour
     [SerializeField] private LayerMask allMasks;
     [SerializeField] private float fov = 120.0f;
     [SerializeField] private float viewDistance = 10.0f;
+    [SerializeField] private float hitDistance = 0.8f;
     [SerializeField] private float wanderRadius = 7.0f;
     [SerializeField] private float loseThreshold = 10.0f;
 
@@ -20,6 +21,7 @@ public class hr_ZombieController : MonoBehaviour
 
     private bool isAware = false;
     private bool isDetecting = false;
+    private bool isHittingPlayer = false;
     private float loseTimer = 0.0f;
     private Vector3 wanderPoint = Vector3.zero;
 
@@ -45,7 +47,21 @@ public class hr_ZombieController : MonoBehaviour
     {
         if (isAware)
         {
-            agent.SetDestination(player.transform.position);
+            if (Vector3.Distance(transform.position, player.transform.position) > hitDistance)
+            {
+                agent.SetDestination(player.transform.position);
+                CancelInvoke();
+                isHittingPlayer = false;
+            }
+            else
+            {
+                if (isHittingPlayer == false)
+                {
+                    Debug.Log("Invoked");
+                    InvokeRepeating("DamagePlayer", 0.01f, 2.0f);
+                    isHittingPlayer = true;
+                }
+            }
 
             if (!isDetecting)
             {
@@ -140,5 +156,10 @@ public class hr_ZombieController : MonoBehaviour
         {
             agent.SetDestination(wanderPoint);
         }
+    }
+
+    private void DamagePlayer()
+    {
+        gm.DamagePlayer(10.0f);
     }
 }

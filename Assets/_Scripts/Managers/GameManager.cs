@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager
 {
@@ -8,6 +7,7 @@ public class GameManager
     public float timeSpent;
     public float levelStartTime;
     public int munitionLeft;
+    public float health;
 
     // Points Variables
     public int points;
@@ -34,6 +34,7 @@ public class GameManager
         this.points = 0;
         this.levelStartTime = 0;
         this.munitionLeft = 20;
+        this.health = 100;
         this.playerName = "Jane Doe";
     }
 
@@ -42,7 +43,18 @@ public class GameManager
         UpdateHighScore();
         this.points = 0;
         this.munitionLeft = 20;
+        this.health = 100;
         this.playerName = "Jane Doe";
+    }
+
+    public void DamagePlayer(float amount = 10.0f)
+    {
+        this.health -= amount;
+
+        if (this.health <= 0)
+        {
+            SceneManager.LoadScene("YouDied");
+        }
     }
 
     public void StartLevel()
