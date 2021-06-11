@@ -1354,7 +1354,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 311
   fov: 120
-  viewDistance: 15
+  viewDistance: 10
   wanderRadius: 7
   loseThreshold: 10
 --- !u!1 &3594989744128674561
