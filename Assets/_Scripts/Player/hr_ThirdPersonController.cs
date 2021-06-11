@@ -67,6 +67,7 @@ public class hr_ThirdPersonController : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     private bool aimState = false;
     private bool firingState = false;
+    private bool interactState = false;
     private hr_IInteractable currentTarget;
 
     /// <summary>
@@ -123,6 +124,22 @@ public class hr_ThirdPersonController : MonoBehaviour
             AlertNearbyZombies();
 
             RaycastForInteractable();
+
+            if (inputManager.interactInput)
+            {
+                if (!interactState && currentTarget != null)
+                {
+                    interactState = true;
+                    currentTarget.OnInteract();
+                }
+            }
+            else
+            {
+                if (interactState)
+                {
+                    interactState = false;
+                }
+            }
         }
     }
 
@@ -375,10 +392,10 @@ public class hr_ThirdPersonController : MonoBehaviour
     {
         RaycastHit hit;
 
-        Ray ray = new Ray(cameraLookAt.transform.position, cameraLookAt.transform.forward);
-        Debug.DrawRay(cameraLookAt.transform.position, cameraLookAt.transform.forward * range, Color.red, 0.1f);
+        Ray ray = new Ray(mainCamera.transform.position, mainCamera.transform.forward);
+        // Debug.DrawRay(mainCamera.transform.position, mainCamera.transform.forward * range, Color.red, 0.1f);
 
-        if (Physics.Raycast(ray, out hit, range))
+        if (Physics.Raycast(ray, out hit, range, groundLayer))
         {
             hr_IInteractable interactable = hit.collider.GetComponent<hr_IInteractable>();
 
