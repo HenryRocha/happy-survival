@@ -2,6 +2,8 @@
 
 3rd Person survival shooter game made in Unity 3D for Insper's 2021.1 Digital Games class.
 
+[GDD](https://docs.google.com/document/d/17zAKDlTaZBwGinKCybhFK65TiqAgc1Hw0HO5GH1B0Qc/edit)
+
 ## Assets
 
 1. [Ammo pickup sound](https://freesound.org/people/zivs/sounds/433771/)
