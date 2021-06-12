@@ -160,6 +160,7 @@ public class hr_ZombieController : MonoBehaviour
 
     private void DamagePlayer()
     {
+        animator.SetTrigger("attack");
         gm.DamagePlayer(10.0f);
     }
 }

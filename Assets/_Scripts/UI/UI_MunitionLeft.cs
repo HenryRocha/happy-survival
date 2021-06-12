@@ -20,6 +20,6 @@ public class UI_MunitionLeft : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = $"Munition: {gm.munitionLeft}";
+        text.text = $"Ammo: {gm.munitionLeft}";
     }
 }

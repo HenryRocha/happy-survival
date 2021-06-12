@@ -20,6 +20,6 @@ public class UI_Points : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = $"Pontos: {gm.points}";
+        text.text = $"Points: {gm.points}";
     }
 }
